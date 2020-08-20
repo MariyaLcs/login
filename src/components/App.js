@@ -1,14 +1,12 @@
 import React from "react";
+import Login from "./Login";
+
+const isLoggedIn = false;
 
 function App() {
   return (
     <div className="container">
-      <h1>App Home</h1>
-      <form className="form">
-        <input type="text" placeholder="Username" />
-        <input type="password" placeholder="Password" />
-        <button type="submit">Log In</button>
-      </form>
+      {isLoggedIn ? <h1>Welcome, User</h1> : <Login />}
     </div>
   );
 }
