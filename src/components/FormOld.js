@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import Input from "./Input";
 
-function Form() {
+function Form(props) {
   const [fName, setFName] = useState("");
   function updateFName(event) {
     const firstName = event.target.value;
@@ -9,18 +10,21 @@ function Form() {
   return (
     <form className="form">
       <h1>Hello {fName}</h1>
-      <input
+      <Input
         type="text"
         placeholder="Username"
         name="fName"
-        value={fName}
+        value="fName"
         onChange={updateFName}
       />
-      <input type="password" placeholder="Password" />
+      <Input type="password" placeholder="Password" />
+      {!props.isRegistered && (
+        <Input type="password" placeholder="Confirm Password" />
+      )}
 
-      <input type="password" placeholder="Confirm Password" />
-
-      <button type="submit">Register</button>
+      <button type="submit">
+        {props.isRegistered ? "Log In" : "Register"}
+      </button>
     </form>
   );
 }
