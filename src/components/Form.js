@@ -1,28 +1,67 @@
 import React, { useState } from "react";
 
-function Form() {
-  const [fName, setFName] = useState("");
-  function updateFName(event) {
-    const firstName = event.target.value;
-    setFName(firstName);
+function App() {
+  const [contact, setContact] = useState({
+    fName: "",
+    lName: "",
+    email: "",
+  });
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setContact((prevValue) => {
+      if (name === "fName") {
+        return {
+          fName: value,
+          lName: prevValue.lName,
+          email: prevValue.email,
+        };
+      } else if (name === "lName") {
+        return {
+          fName: prevValue.fName,
+          lName: value,
+          email: prevValue.email,
+        };
+      } else if (name === "email") {
+        return {
+          fName: prevValue.fName,
+          lName: prevValue.lName,
+          email: value,
+        };
+      }
+    });
   }
+
   return (
-    <form className="form">
-      <h1>Hello {fName}</h1>
-      <input
-        type="text"
-        placeholder="Username"
-        name="fName"
-        value={fName}
-        onChange={updateFName}
-      />
-      <input type="password" placeholder="Password" />
-
-      <input type="password" placeholder="Confirm Password" />
-
-      <button type="submit">Register</button>
-    </form>
+    <div className="container">
+      <h1>
+        Hello {contact.fName} {contact.lName}
+      </h1>
+      <p>{contact.email}</p>
+      <form>
+        <input
+          onChange={handleChange}
+          value={contact.fName}
+          name="fName"
+          placeholder="First Name"
+        />
+        <input
+          onChange={handleChange}
+          value={contact.lName}
+          name="lName"
+          placeholder="Last Name"
+        />
+        <input
+          onChange={handleChange}
+          value={contact.email}
+          name="email"
+          placeholder="Email"
+        />
+        <button>Submit</button>
+      </form>
+    </div>
   );
 }
 
-export default Form;
+export default App;
